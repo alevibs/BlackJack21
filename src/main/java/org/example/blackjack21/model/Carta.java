@@ -20,4 +20,8 @@ public class Carta {
     {
         return rango;
     }
+
+    @Override
+    public String toString(){
+        return rango + "de" + palo;}
 }

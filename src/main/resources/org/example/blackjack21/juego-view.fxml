@@ -3,13 +3,17 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.blackjack21.controller.BlackJackController">
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -40,12 +44,12 @@
                         <Font name="System Bold Italic" size="21.0" />
                      </font>
                   </Label>
-                  <TextArea prefHeight="170.0" prefWidth="750.0" />
+                  <HBox fx:id="contenedorCartas" alignment="CENTER" minHeight="200.0" minWidth="600.0" prefHeight="200.0" prefWidth="600.0" spacing="10.0" />
                </children>
             </VBox>
             <VBox alignment="CENTER" fillWidth="false" prefHeight="100.0" prefWidth="100.0">
                <children>
-                  <Button lineSpacing="5.0" mnemonicParsing="false" text="PEDIR CARTA" textAlignment="CENTER">
+                  <Button fx:id="btnPedirCarta"  lineSpacing="5.0" mnemonicParsing="false" text="PEDIR CARTA" textAlignment="CENTER" onAction="#onPedirCarta" >
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

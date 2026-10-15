@@ -34,4 +34,8 @@ public class Mazo {
 
     }
 
+    public boolean estaVacio() {
+        return mazo.isEmpty();
+    }
+
 }

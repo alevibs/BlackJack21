@@ -1,4 +1,4 @@
-package org.example.blackjack21.model;
+package org.example.blackjack21;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
