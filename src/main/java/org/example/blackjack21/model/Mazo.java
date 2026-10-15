@@ -1,6 +1,7 @@
 package org.example.blackjack21.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Mazo {
 
@@ -9,17 +10,29 @@ public class Mazo {
     String[] rango= {"2","3","4","5","6","7","8","9","J","Q","K","As"};
 
     public void crear_Mazo(){
-        for (String palo: palo)
+        for (String p: palo)
         {
-            palo.add();
-            for (String rango:rango)
+            for (String r:rango)
             {
-                rango.add();
-
+                mazo.add(new Carta(p,r));
             }
         }
     }
 
+    public void barajar() {
+        Collections.shuffle(mazo);
+    }
 
+    public Carta sacarCarta() {
+        if (mazo.isEmpty()) {
+            return null;
+        }
+
+        return mazo.remove(0);
+    }
+
+    public int cantidadCartas() {
+        return mazo.size();
+    }
 
 }
