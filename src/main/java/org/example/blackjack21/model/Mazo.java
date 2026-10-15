@@ -7,15 +7,13 @@ public class Mazo {
 
     private ArrayList <Carta> mazo= new ArrayList<>();
     String[] palo= {"P","C","D","T"};
-    String[] rango= {"2","3","4","5","6","7","8","9","J","Q","K","As"};
+    String[] rango= {"2","3","4","5","6","7","8","9","10","J","Q","K","A"};
 
-    public void crear_Mazo(){
+    public void crearMazo(){
         for (String p: palo)
         {
-            for (String r:rango)
-            {
-                mazo.add(new Carta(p,r));
-            }
+            for (String r:rango){
+                mazo.add(new Carta(p,r));}
         }
     }
 
@@ -23,16 +21,17 @@ public class Mazo {
         Collections.shuffle(mazo);
     }
 
-    public Carta sacarCarta() {
-        if (mazo.isEmpty()) {
-            return null;
-        }
-
-        return mazo.remove(0);
+    public int cantidadCartas(){
+        return mazo.size();
     }
 
-    public int cantidadCartas() {
-        return mazo.size();
+    public Carta sacarCarta()
+    {
+        if (mazo.isEmpty()){
+                return null;
+            }
+        return mazo.remove(0);
+
     }
 
 }
