@@ -7,7 +7,7 @@ public class Mazo {
 
     private ArrayList <Carta> mazo= new ArrayList<>();
     String[] palo= {"P","C","D","T"};
-    String[] rango= {"2","3","4","5","6","7","8","9","10","J","Q","K","A"};
+    String[] rango= {"2","3","4","5","6","7","8","9","10","J","Q","K","As"};
 
     public void crearMazo(){
         for (String p: palo)
