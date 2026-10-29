@@ -16,6 +16,7 @@ public class Apuesta {
 
     public static String validarEntrada(String texto, int saldo)
     {
+
         if (texto==null || texto.isBlank())
         {
             return "Ingrese una cantidad para apostar.";
@@ -24,13 +25,13 @@ public class Apuesta {
 
         try {
             cantidadApuesta = Integer.parseInt(texto);
-        } catch (NumberFormatException e) {
-            return "Ingresa un número entero válido, sin decimales.";
+        } catch (NumberFormatException errorTipoDato) {
+            return "Ingresa un número entero válido.";
         }
 
         if (cantidadApuesta < 10)
         {
-            return "Para apostar ingrese un valor mayor a 10.";
+            return "El valor mínimo para apostar es 10.";
         }
 
         if (cantidadApuesta % 10 != 0)
@@ -38,14 +39,14 @@ public class Apuesta {
             return "Ingrese un valor multiplo de 10 para apostar.";
         }
 
-        if (cantidadApuesta < saldo)
+        if (cantidadApuesta > saldo)
         {
-            return "Para apostar ingrese un valor menor o igual al saldo disponible";
+            return "Para apostar ingrese un valor menor o igual al saldo disponible.";
         }
 
         if (saldo<10)
         {
-            return "No tienes saldo suficiente para otra ronda.";
+            return "No tienes saldo suficiente para otra partida.";
         }
 
         return null;

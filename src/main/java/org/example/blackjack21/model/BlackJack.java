@@ -29,7 +29,4 @@ public class BlackJack {
         if (error!=null){
             return error;
         }
-
-
-
 }
