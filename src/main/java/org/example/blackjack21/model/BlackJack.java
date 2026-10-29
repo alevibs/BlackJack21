@@ -51,7 +51,7 @@ public class BlackJack {
             return error;
         }
 
-        int cantidad = Integer.parseInt(textoApuesta);
+        int cantidad = Integer.parseInt(textoApuesta.trim());
         apuestaActual = new Apuesta(cantidad);
         saldo -= cantidad;
 
