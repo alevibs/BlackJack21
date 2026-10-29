@@ -9,7 +9,7 @@ public class Apuesta {
         this.cantidadApuesta=cantidadApuesta;
     }
 
-    int getCantidad()
+    public int getCantidad()
     {
         return cantidadApuesta;
     }
@@ -24,7 +24,7 @@ public class Apuesta {
         int cantidadApuesta;
 
         try {
-            cantidadApuesta = Integer.parseInt(texto);
+            cantidadApuesta = Integer.parseInt(texto.trim());
         } catch (NumberFormatException errorTipoDato) {
             return "Ingresa un número entero válido.";
         }
