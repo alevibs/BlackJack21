@@ -2,57 +2,50 @@ package org.example.blackjack21.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import org.example.blackjack21.model.Carta;
-import org.example.blackjack21.model.Mazo;
 
-import java.util.ArrayList;
+    public class BlackJackController {
 
-public class BlackJackController {
+        @FXML
+        private Label lblPuntajeComputador;
 
-    @FXML
-    private HBox contenedorCartas;
+        @FXML
+        private HBox hboxCartasComputador;
 
-    @FXML
-    private Button btnPedirCarta;
+        @FXML
+        private Label lblMensaje;
 
-    private Mazo mazo;
-    private ArrayList<Carta> manoJugador;
+        @FXML
+        private Label lblPuntajeJugador;
 
-    @FXML
-    private void onPedirCarta(){
-        if (mazo.estaVacio()) {
-            btnPedirCarta.setDisable(true);
-            return;
-        }
-        repartirCarta();
-    }
+        @FXML
+        private HBox hboxCartasJugador;
 
-    private void repartirCarta() {
+        @FXML
+        private Label lblSaldo;
 
-        if (mazo.estaVacio()) {
-            btnPedirCarta.setDisable(true);
-            return;
-        }
+        @FXML
+        private Label lblApuesta;
 
-        Carta nuevaCarta = mazo.sacarCarta();
+        @FXML
+        private TextField txtApuesta;
 
-        manoJugador.add(nuevaCarta);
+        @FXML
+        private Button btnIniciar;
 
-    }
+        @FXML
+        private Button btnPedir;
 
-    public void initialize() {
+        @FXML
+        private Button btnPlantarse;
 
-        mazo = new Mazo();
-        mazo.crearMazo();
-        mazo.barajar();
-        manoJugador = new ArrayList<>();
+        @FXML
+        private Button btnReglas;
 
-        repartirCarta();
-        repartirCarta();
-    }
-
-
+        @FXML
+        private Button btnCerrar;
 
 
 }

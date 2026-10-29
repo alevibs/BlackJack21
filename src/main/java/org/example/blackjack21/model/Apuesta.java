@@ -39,18 +39,17 @@ public class Apuesta {
             return "Ingrese un valor multiplo de 10 para apostar.";
         }
 
-        if (cantidadApuesta > saldo)
-        {
-            return "Para apostar ingrese un valor menor o igual al saldo disponible.";
-        }
-
         if (saldo<10)
         {
             return "No tienes saldo suficiente para otra partida.";
         }
 
+        if (cantidadApuesta > saldo)
+        {
+            return "Para apostar ingrese un valor menor o igual al saldo disponible.";
+        }
+
         return null;
     }
-
 
 }
