@@ -1,41 +1,49 @@
 package org.example.blackjack21.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Random;
 
 public class Mazo {
 
-    private ArrayList <Carta> mazo= new ArrayList<>();
-    String[] palo= {"P","C","D","T"};
-    String[] rango= {"2","3","4","5","6","7","8","9","10","J","Q","K","As"};
-
-    public void crearMazo(){
-        for (String p: palo)
-        {
-            for (String r:rango){
-                mazo.add(new Carta(p,r));}
+    private Carta[] cartas= new Carta[52];
+    private String[] palo= {"P","C","D","T"};
+    private String[] rango= {"2","3","4","5","6","7","8","9","10","J","Q","K","As"};
+    private int siguiente=0;
+    public Mazo() {
+        int contador = 0;
+        for (String p : palo) {
+            for (String r : rango) {
+                cartas[contador] = new Carta(p ,r);
+                contador=contador+1;
+            }
+        }
+    }
+    public void barajar() {
+        Random azar=new Random();
+        for (int i=51; i>0;i--){
+            int j = azar.nextInt(1+i);
+            Carta temporal=cartas[i];
+            cartas[i]=cartas[j];
+            cartas[j]=temporal;
         }
     }
 
-    public void barajar() {
-        Collections.shuffle(mazo);
-    }
-
-    public int cantidadCartas(){
-        return mazo.size();
+    public int cartasRestantes(){
+        return 52-siguiente;
     }
 
     public Carta sacarCarta()
     {
-        if (mazo.isEmpty()){
-                return null;
-            }
-        return mazo.remove(0);
-
+        if (siguiente==52){
+            return null;
+        }
+        else {
+            Carta carta=cartas[siguiente];
+            siguiente++;
+            return carta;
+        }
     }
-
-    public boolean estaVacio() {
-        return mazo.isEmpty();
+    public void reiniciar(){
+        barajar();
+        siguiente=0;
     }
-
 }
