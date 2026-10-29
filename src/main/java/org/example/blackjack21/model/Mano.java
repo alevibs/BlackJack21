@@ -39,4 +39,8 @@ public class Mano {
 
         return puntaje;
     }
+
+    public void limpiar() {
+        cartas.clear();
+    }
 }
