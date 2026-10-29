@@ -7,7 +7,9 @@ public class Mazo {
     private Carta[] cartas= new Carta[52];
     private String[] palo= {"P","C","D","T"};
     private String[] rango= {"2","3","4","5","6","7","8","9","10","J","Q","K","As"};
+
     private int siguiente=0;
+
     public Mazo() {
         int contador = 0;
         for (String p : palo) {
