@@ -19,16 +19,14 @@ public class Mano {
         return cartas;
     }
 
-    public int calcularPuntaje()
-    {
-        int puntaje=0;
-        int cantidadAs=0;
+    public int calcularPuntaje() {
+        int puntaje = 0;
+        int cantidadAs = 0;
 
         for (Carta carta : cartas) {
             puntaje += carta.getValor();
 
-            if (carta.getRango().equals("As"))
-            {
+            if (carta.getRango().equals("As")) {
                 cantidadAs++;
             }
 
@@ -40,4 +38,5 @@ public class Mano {
         }
 
         return puntaje;
+    }
 }

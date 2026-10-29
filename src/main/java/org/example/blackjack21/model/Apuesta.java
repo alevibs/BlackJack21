@@ -16,9 +16,9 @@ public class Apuesta {
 
     public static String validarEntrada(String texto, int saldo)
     {
-        if (texto==null || texto.isBlanck())
+        if (texto==null || texto.isBlank())
         {
-            return "Ingrese una cantidad para apostar."
+            return "Ingrese una cantidad para apostar.";
         }
         int cantidadApuesta;
 
@@ -38,7 +38,7 @@ public class Apuesta {
             return "Ingrese un valor multiplo de 10 para apostar.";
         }
 
-        if (cantidadApuesta < Saldo)
+        if (cantidadApuesta < saldo)
         {
             return "Para apostar ingrese un valor menor o igual al saldo disponible";
         }
@@ -47,8 +47,9 @@ public class Apuesta {
         {
             return "No tienes saldo suficiente para otra ronda.";
         }
-    }
 
+        return null;
+    }
 
 
 }
