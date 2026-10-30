@@ -11,8 +11,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
     public class BlackJackController {
+
 
         @FXML
         private Label lblPuntajeComputador;
@@ -123,18 +126,18 @@ import javafx.scene.layout.HBox;
 
             for (Carta carta : juego.getManoJugador().getCartas()) {
 
-                Label lblCarta = new Label(carta.toString());
+                ImageView vistaCarta = crearVistaCarta(carta);
 
-                hboxCartasJugador.getChildren().add(lblCarta);
+                hboxCartasJugador.getChildren().add(vistaCarta);
             }
 
             hboxCartasComputador.getChildren().clear();
 
             for (Carta carta : juego.getManoComputador().getCartas()) {
 
-                Label lblCarta = new Label(carta.toString());
+                ImageView vistaCarta = crearVistaCarta(carta);
 
-                hboxCartasComputador.getChildren().add(lblCarta);
+                hboxCartasComputador.getChildren().add(vistaCarta);
             }
 
             lblPuntajeJugador.setText(
@@ -221,7 +224,45 @@ import javafx.scene.layout.HBox;
                     == ButtonType.OK) {
 
                 Platform.exit();
+
             }
+
+        }
+
+        private ImageView crearVistaCarta(Carta carta) {
+
+            String paloImagen = switch (carta.getPalo()) {
+                case "P" -> "spades";
+                case "C" -> "hearts";
+                case "D" -> "diamonds";
+                case "T" -> "clubs";
+                default -> throw new IllegalArgumentException("Palo desconocido");
+            };
+
+            String rangoImagen = carta.getRango();
+
+            if (rangoImagen.equals("As")) {
+                rangoImagen = "A";
+            }
+
+            String nombreArchivo = rangoImagen + "_" + paloImagen + ".png";
+
+            String ruta = "/org/example/blackjack21/imagenes/cartas/" + nombreArchivo;
+
+            var recurso = getClass().getResource(ruta);
+
+            if (recurso == null) {
+                throw new IllegalArgumentException("No se encontró la imagen: " + ruta);
+            }
+
+            Image imagen = new Image(recurso.toExternalForm());
+
+            ImageView vista = new ImageView(imagen);
+            vista.setFitWidth(90);
+            vista.setFitHeight(130);
+            vista.setPreserveRatio(true);
+
+            return vista;
         }
     }
 
