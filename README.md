@@ -9,8 +9,8 @@ Aplicación de escritorio en **Java y JavaFX** para jugar 21 Black Jack contra e
 
 | Nombre | Código | Correo institucional | Usuario de GitHub |
 |---|---|---|---|
-| Juan Ángel Mavesoy Rivadeneira | _2535293_ | _juan.mavesoy@correounivalle.edu.co_ | _mavesoy1119_ |
-| Alejandra Villota | _2437438_ | _sarah.villota@correounivalle.edu.co_ | alevibs |
+| Juan Ángel Mavesoy Rivadeneira | 2535293 | juan.mavesoy@correounivalle.edu.co | mavesoy1119|
+| Alejandra Villota | 2437438 | sarah.villota@correounivalle.edu.co | alevibs |
 
 ## Requisitos
 
@@ -64,3 +64,7 @@ src/main/resources/org/example/blackjack21/
 ├── juego-view.fxml       Vista (diseñada con Scene Builder)
 └── imagenes/cartas/      Imágenes de las 52 cartas
 ```
+
+## Versión entregada
+
+Commit evaluado: _(pegar aquí el enlace al commit de la entrega)_
