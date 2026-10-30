@@ -64,17 +64,154 @@ public class BlackJack {
         manoJugador.agregarCarta(mazo.sacarCarta());
         manoJugador.agregarCarta(mazo.sacarCarta());
 
-        if (manoJugador.calcularPuntaje() == 21 &&
-                manoJugador.cantidadCartas() == 2) {
 
-            estado = Estado.TURNO_COMPUTADOR;
+        estado = Estado.TURNO_JUGADOR;
+        if (manoJugador.tieneBlackJack()) {
+            jugarTurnoComputador();
+        }
+        return null;
+    }
 
-        } else {
+    public String pedirCarta() {
 
-            estado = Estado.TURNO_JUGADOR;
+        if (estado != Estado.TURNO_JUGADOR) {
+            return "No puedes pedir cartas en este momento.";
+        }
+
+        manoJugador.agregarCarta(mazo.sacarCarta());
+
+        int puntaje = manoJugador.calcularPuntaje();
+
+        if (puntaje > 21) {
+            finalizarRonda(Resultado.PERDIO_RONDA);
+        } else if (puntaje == 21) {
+            jugarTurnoComputador();
         }
 
         return null;
     }
 
+    public String plantarse() {
+
+        if (estado != Estado.TURNO_JUGADOR) {
+            return "No puedes plantarte en este momento.";
+        }
+
+        jugarTurnoComputador();
+
+        return null;
+    }
+
+    private void jugarTurnoComputador() {
+
+        estado = Estado.TURNO_COMPUTADOR;
+
+        manoComputador.agregarCarta(mazo.sacarCarta());
+        manoComputador.agregarCarta(mazo.sacarCarta());
+
+        if (manoJugador.tieneBlackJack()) {
+
+            if (manoComputador.tieneBlackJack()) {
+                finalizarRonda(Resultado.EMPATE);
+            } else {
+                finalizarRonda(Resultado.BLACK_JACK);
+            }
+
+            return;
+        }
+
+        if (manoComputador.tieneBlackJack()) {
+            finalizarRonda(Resultado.PERDIO_RONDA);
+            return;
+        }
+
+        while (manoComputador.calcularPuntaje() < 17) {
+            manoComputador.agregarCarta(mazo.sacarCarta());
+        }
+        determinarResultado();
+    }
+
+    private void determinarResultado() {
+
+        int puntajeJugador = manoJugador.calcularPuntaje();
+        int puntajeComputador = manoComputador.calcularPuntaje();
+
+        if (puntajeComputador > 21) {
+            finalizarRonda(Resultado.GANO_RONDA);
+            return;
+        }
+
+        if (puntajeJugador > 21) {
+            finalizarRonda(Resultado.PERDIO_RONDA);
+            return;
+        }
+
+        boolean jugadorEspecial = manoJugador.esVeinteYMedio();
+        boolean computadorEspecial = manoComputador.esVeinteYMedio();
+
+        if (jugadorEspecial && computadorEspecial) {
+            finalizarRonda(Resultado.EMPATE);
+        } else if (jugadorEspecial) {
+            finalizarRonda(Resultado.GANO_RONDA);
+        } else if (computadorEspecial) {
+            finalizarRonda(Resultado.PERDIO_RONDA);
+        } else if (puntajeJugador > puntajeComputador) {
+            finalizarRonda(Resultado.GANO_RONDA);
+        } else if (puntajeComputador > puntajeJugador) {
+            finalizarRonda(Resultado.PERDIO_RONDA);
+        } else {
+            finalizarRonda(Resultado.EMPATE);
+        }
+    }
+
+    private void finalizarRonda(Resultado resultadoFinal) {
+
+        resultado = resultadoFinal;
+        estado = Estado.TERMINO_RONDA;
+
+        int apuesta = apuestaActual.getCantidad();
+
+        switch (resultadoFinal) {
+
+            case GANO_RONDA:
+                saldo += apuesta * 2;
+                break;
+
+            case BLACK_JACK:
+                saldo += (int) (apuesta * 2.5);
+                break;
+
+            case EMPATE:
+                saldo += apuesta;
+                break;
+
+            case PERDIO_RONDA:
+                // No se devuelve la apuesta.
+                break;
+        }
+    }
+
+    public int getSaldo() {
+        return saldo;
+    }
+
+    public Mano getManoJugador() {
+        return manoJugador;
+    }
+
+    public Mano getManoComputador() {
+        return manoComputador;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public Resultado getResultado() {
+        return resultado;
+    }
+
+    public Apuesta getApuestaActual() {
+        return apuestaActual;
+    }
 }
