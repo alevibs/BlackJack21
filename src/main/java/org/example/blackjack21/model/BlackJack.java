@@ -151,7 +151,7 @@ public class BlackJack {
 
         if (jugadorEspecial && computadorEspecial) {
             finalizarRonda(Resultado.EMPATE);
-        } else if (jugadorEspecial) {
+        } else if (jugadorEspecial && puntajeComputador < 21) {
             finalizarRonda(Resultado.GANO_RONDA);
         } else if (computadorEspecial) {
             finalizarRonda(Resultado.PERDIO_RONDA);

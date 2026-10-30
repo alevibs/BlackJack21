@@ -78,7 +78,6 @@ import javafx.scene.image.ImageView;
                 return;
             }
 
-            lblMensaje.setText("Comienza la partida.");
             txtApuesta.clear();
             actualizarVista();
         }
@@ -165,29 +164,48 @@ import javafx.scene.image.ImageView;
 
             txtApuesta.setDisable(rondaActiva);
 
-            if (juego.getEstado() == BlackJack.Estado.TERMINO_RONDA) {
+            int puntajeJugador = juego.getManoJugador().calcularPuntaje();
+            int puntajeComputador = juego.getManoComputador().calcularPuntaje();
+
+            if (juego.getEstado() == BlackJack.Estado.TURNO_JUGADOR) {
+
+                if (juego.getManoJugador().esVeinteYMedio()) {
+                    lblMensaje.setText("¡Veinte y medio! Tienes 14. Puedes pedir carta o plantarte.");
+                } else {
+                    lblMensaje.setText("Tu turno: pide carta o plántate.");
+                }
+
+            } else if (juego.getEstado() == BlackJack.Estado.TERMINO_RONDA) {
+
+                String detalle = " (Tú: " + puntajeJugador + " - Computador: " + puntajeComputador + ")";
+                String mensaje = "";
 
                 switch (juego.getResultado()) {
-
                     case GANO_RONDA:
-                        lblMensaje.setText("¡Ganaste la ronda!");
+                        mensaje = "¡Ganaste la ronda!" + detalle;
                         break;
-
                     case PERDIO_RONDA:
-                        lblMensaje.setText("Perdiste la ronda.");
+                        if (puntajeJugador > 21) {
+                            mensaje = "Te pasaste de 21. Perdiste la ronda.";
+                        } else {
+                            mensaje = "Perdiste la ronda." + detalle;
+                        }
                         break;
-
                     case EMPATE:
-                        lblMensaje.setText("La ronda terminó en empate.");
+                        mensaje = "Empate: se devuelve la apuesta." + detalle;
                         break;
-
                     case BLACK_JACK:
-                        lblMensaje.setText("¡Blackjack! Ganaste la ronda.");
+                        mensaje = "¡Blackjack! Ganaste 1,5 veces tu apuesta.";
                         break;
                 }
+
+                if (juego.getSaldo() < 10) {
+                    mensaje += " No tienes saldo suficiente para otra ronda.";
+                }
+
+                lblMensaje.setText(mensaje);
             }
         }
-
         @FXML
         private void onVerReglas() {
 
@@ -197,36 +215,34 @@ import javafx.scene.image.ImageView;
 
             alerta.setHeaderText("Reglas del juego");
 
-            alerta.setContentText(
-                    "1. El objetivo es acercarse a 21 sin superarlo.\n\n" +
-                            "2. El As vale 1 u 11.\n\n" +
-                            "3. Las cartas J, Q y K valen 10.\n\n" +
-                            "4. El computador pide cartas hasta llegar a 17.\n\n" +
-                            "5. La apuesta mínima es de 10 fichas.\n\n" +
-                            "6. No puedes apostar más de tu saldo disponible."
-            );
-
+                alerta.setContentText(
+                        "OBJETIVO: sumar más que el computador sin pasar de 21.\n\n" +
+                                "VALORES: del 2 al 10 su número; J, Q y K valen 10; el As vale 1 u 11.\n\n" +
+                                "APUESTAS: empiezas con 1.000 fichas. Mínimo 10, múltiplo de 10 y sin superar tu saldo.\n\n" +
+                                "JUGADAS ESPECIALES:\n" +
+                                "- Blackjack: As + carta de 10 en las dos primeras. Le gana a todo.\n" +
+                                "- Veinte y medio: figura + 4 (14 puntos). Le gana a 20 o menos, pierde contra 21.\n" +
+                                "- Pasarse: más de 21, pierdes.\n\n" +
+                                "PAGOS: victoria = 2 veces la apuesta; Blackjack = 2,5 veces; empate = se devuelve.\n\n" +
+                                "COMPUTADOR: pide carta mientras tenga menos de 17 y se planta con 17 o más."
+                );
             alerta.showAndWait();
         }
 
         @FXML
-        private void onCerrar() {
-
+        public boolean confirmarCierre() {
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-
             alerta.setTitle("Cerrar juego");
-
             alerta.setHeaderText("¿Estás seguro de que deseas salir?");
+            alerta.setContentText("Se perderá la partida actual.");
+            return alerta.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK;
+        }
 
-            alerta.setContentText("Se cerrará la partida.");
-
-            if (alerta.showAndWait().orElse(ButtonType.CANCEL)
-                    == ButtonType.OK) {
-
+        @FXML
+        private void onCerrar() {
+            if (confirmarCierre()) {
                 Platform.exit();
-
             }
-
         }
 
         private ImageView crearVistaCarta(Carta carta) {
