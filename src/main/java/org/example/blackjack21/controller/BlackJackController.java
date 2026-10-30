@@ -187,12 +187,18 @@ import javafx.scene.image.ImageView;
                     case PERDIO_RONDA:
                         if (puntajeJugador > 21) {
                             mensaje = "Te pasaste de 21. Perdiste la ronda.";
+                        } else if (juego.getManoComputador().tieneBlackJack()) {
+                            mensaje = "El computador tiene Blackjack. Perdiste la ronda.";
                         } else {
                             mensaje = "Perdiste la ronda." + detalle;
                         }
                         break;
                     case EMPATE:
-                        mensaje = "Empate: se devuelve la apuesta." + detalle;
+                        if (juego.getManoJugador().tieneBlackJack()) {
+                            mensaje = "Empate: ambos tienen Blackjack. Se devuelve la apuesta.";
+                        } else {
+                            mensaje = "Empate: se devuelve la apuesta." + detalle;
+                        }
                         break;
                     case BLACK_JACK:
                         mensaje = "¡Blackjack! Ganaste 1,5 veces tu apuesta.";
